@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -346,7 +347,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
 
             String jsonurl = endpoint + "/resolve/" + handle;
             jsonStreamReader = new InputStreamReader(
-                    new URL(jsonurl).openStream(), "UTF-8");
+                URI.create(jsonurl).toURL().openStream(), "UTF-8");
             JsonParser parser = new JsonParser();
             JsonElement jsonElement = parser.parse(jsonStreamReader);
 
@@ -476,7 +477,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
         {
             String jsonurl = endpoint + "/listhandles/" + naHandle;
             jsonStreamReader = new InputStreamReader(
-                    new URL(jsonurl).openStream(), "UTF-8");
+                URI.create(jsonurl).toURL().openStream(), "UTF-8");
             JsonParser parser = new JsonParser();
             JsonElement jsonElement = parser.parse(jsonStreamReader);
 
@@ -658,7 +659,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
     {
         URL url = null;
         try {
-            url = new URL(endpoint + "/listprefixes");
+            url = URI.create(endpoint + "/listprefixes").toURL();
         } catch (MalformedURLException ex) {
             log.error(endpoint + "is not a correct URL, will ignore this "
                     + "DSpace instance.", ex);
