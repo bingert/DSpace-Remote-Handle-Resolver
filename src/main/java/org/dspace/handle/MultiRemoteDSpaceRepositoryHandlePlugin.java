@@ -9,8 +9,8 @@ package org.dspace.handle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -25,21 +25,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.Logger;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
+import net.cnri.util.StreamTable;
 import net.handle.hdllib.Encoder;
 import net.handle.hdllib.HandleException;
 import net.handle.hdllib.HandleStorage;
 import net.handle.hdllib.HandleValue;
 import net.handle.hdllib.ScanCallback;
 import net.handle.hdllib.Util;
-import net.cnri.util.StreamTable;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * Extension to the CNRI Handle Server that translates requests to resolve
