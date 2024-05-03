@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonElement;
@@ -70,8 +71,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
     private static final String PROPERTY_KEY = "dspace.handle.endpoint";
 
     /** log4j category */
-    private static final Logger log = Logger
-            .getLogger(MultiRemoteDSpaceRepositoryHandlePlugin.class);
+    private static final Logger log = LogManager.getLogger(MultiRemoteDSpaceRepositoryHandlePlugin.class.getName());
 
     // maps prefixes to URLs from DSpace instances
     private Map<String, String> prefixes;
