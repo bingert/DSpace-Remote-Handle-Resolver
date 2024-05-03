@@ -8,7 +8,9 @@
     http://www.dspace.org/license/
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.dspace</groupId>
@@ -116,118 +118,118 @@
     </reporting>
 
     <licenses>
-      <license>
-         <name>DuraSpace BSD License</name>
-         <url>https://raw.github.com/DSpace/DSpace/master/LICENSE</url>
-         <distribution>repo</distribution>
-         <comments>
+        <license>
+            <name>DuraSpace BSD License</name>
+            <url>https://raw.github.com/DSpace/DSpace/master/LICENSE</url>
+            <distribution>repo</distribution>
+            <comments>
             A BSD 3-Clause license for the DSpace codebase.
-         </comments>
-      </license>
+            </comments>
+        </license>
     </licenses>
 
-   <issueManagement>
-      <system>JIRA</system>
-      <url>https://jira.duraspace.org/browse/DS</url>
-   </issueManagement>
+    <issueManagement>
+        <system>JIRA</system>
+        <url>https://jira.duraspace.org/browse/DS</url>
+    </issueManagement>
 
-   <developers>
-      <developer>
-         <name>Pascal-Nicolas Becker</name>
-         <email>dspace at pascal-becker dot de</email>
-         <roles>
-            <role>commiter</role>
-         </roles>
-         <timezone>+1</timezone>
-      </developer>
-      <developer>
-         <name>Andrea Bollini</name>
-         <email>bollini at users.sourceforge.net</email>
-         <url>http://www.linkedin.com/in/andreabollini</url>
-         <organization>CILEA</organization>
-         <organizationUrl>http://www.cilea.it</organizationUrl>
-         <roles>
-            <role>commiter</role>
-         </roles>
-         <timezone>+1</timezone>
-      </developer>
-      <developer>
-          <name>Kevin Van de Velde</name>
-      </developer>
-      <developer>
-          <name>Mark H. Wood</name>
-          <email>mwood@iupui.edu</email>
-          <organization>Indiana University</organization>
-          <timezone>-5</timezone>
-      </developer>
-   </developers>
+    <developers>
+        <developer>
+            <name>Pascal-Nicolas Becker</name>
+            <email>dspace at pascal-becker dot de</email>
+            <roles>
+                <role>commiter</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <name>Andrea Bollini</name>
+            <email>bollini at users.sourceforge.net</email>
+            <url>http://www.linkedin.com/in/andreabollini</url>
+            <organization>CILEA</organization>
+            <organizationUrl>http://www.cilea.it</organizationUrl>
+            <roles>
+                <role>commiter</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <name>Kevin Van de Velde</name>
+        </developer>
+        <developer>
+            <name>Mark H. Wood</name>
+            <email>mwood@iupui.edu</email>
+            <organization>Indiana University</organization>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
 
-   <mailingLists>
-      <mailingList>
-         <name>DSpace Technical Users List</name>
-         <subscribe>
+    <mailingLists>
+        <mailingList>
+            <name>DSpace Technical Users List</name>
+            <subscribe>
             http://lists.sourceforge.net/lists/listinfo/dspace-tech
-         </subscribe>
-         <unsubscribe>
+            </subscribe>
+            <unsubscribe>
             http://lists.sourceforge.net/lists/listinfo/dspace-tech
-         </unsubscribe>
-         <post>dspace-tech AT lists.sourceforge.net</post>
-         <archive>
+            </unsubscribe>
+            <post>dspace-tech AT lists.sourceforge.net</post>
+            <archive>
             http://sourceforge.net/mailarchive/forum.php?forum_name=dspace-tech
-         </archive>
-      </mailingList>
-      <mailingList>
-         <name>DSpace Developers List</name>
-         <subscribe>
+            </archive>
+        </mailingList>
+        <mailingList>
+            <name>DSpace Developers List</name>
+            <subscribe>
             http://lists.sourceforge.net/lists/listinfo/dspace-devel
-         </subscribe>
-         <unsubscribe>
+            </subscribe>
+            <unsubscribe>
             http://lists.sourceforge.net/lists/listinfo/dspace-devel
-         </unsubscribe>
-         <post>dspace-devel AT lists.sourceforge.net</post>
-         <archive>
+            </unsubscribe>
+            <post>dspace-devel AT lists.sourceforge.net</post>
+            <archive>
             http://sourceforge.net/mailarchive/forum.php?forum_name=dspace-devel
-         </archive>
-      </mailingList>
-      <mailingList>
-         <name>DSpace General Issues List</name>
-         <subscribe>
+            </archive>
+        </mailingList>
+        <mailingList>
+            <name>DSpace General Issues List</name>
+            <subscribe>
             http://lists.sourceforge.net/lists/listinfo/dspace-general
-         </subscribe>
-         <unsubscribe>
+            </subscribe>
+            <unsubscribe>
             http://lists.sourceforge.net/lists/listinfo/dspace-general
-         </unsubscribe>
-         <post>dspace-general AT lists.sourceforge.net</post>
-         <archive>
+            </unsubscribe>
+            <post>dspace-general AT lists.sourceforge.net</post>
+            <archive>
             http://sourceforge.net/mailarchive/forum.php?forum_name=dspace-general
-         </archive>
-      </mailingList>
-      <mailingList>
-         <name>DSpace SCM Commit Change-Log</name>
-         <subscribe>
+            </archive>
+        </mailingList>
+        <mailingList>
+            <name>DSpace SCM Commit Change-Log</name>
+            <subscribe>
             http://lists.sourceforge.net/lists/listinfo/dspace-changelog
-         </subscribe>
-         <unsubscribe>
+            </subscribe>
+            <unsubscribe>
             http://lists.sourceforge.net/lists/listinfo/dspace-changelog
-         </unsubscribe>
-         <post>noreply AT lists.sourceforge.net</post>
-         <archive>
+            </unsubscribe>
+            <post>noreply AT lists.sourceforge.net</post>
+            <archive>
             http://sourceforge.net/mailarchive/forum.php?forum_name=dspace-changelog
-         </archive>
-      </mailingList>
-   </mailingLists>
+            </archive>
+        </mailingList>
+    </mailingLists>
 
-   <scm>
-      <connection>scm:git:git@github.com:DSpace/Remote-Handle-Resolver.git</connection>
-      <developerConnection>scm:git:git@github.com:DSpace/Remote-Handle-Resolver.git</developerConnection>
-      <url>git@github.com:DSpace/Remote-Handle-Resolver.git</url>
-      <tag>HEAD</tag>
-   </scm>
+    <scm>
+        <connection>scm:git:git@github.com:DSpace/Remote-Handle-Resolver.git</connection>
+        <developerConnection>scm:git:git@github.com:DSpace/Remote-Handle-Resolver.git</developerConnection>
+        <url>git@github.com:DSpace/Remote-Handle-Resolver.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
-   <ciManagement>
-       <system>Travis CI</system>
-       <url>https://travis-ci.org/DSpace/Remote-Handle-Resolver</url>
-   </ciManagement>
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/DSpace/Remote-Handle-Resolver</url>
+    </ciManagement>
 
     <repositories>
         <repository>
