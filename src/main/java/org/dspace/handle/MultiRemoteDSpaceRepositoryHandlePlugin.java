@@ -107,7 +107,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
         Properties properties = loadProperties(CONFIG_FILE_NAME);
         
         // find urls of all configured dspace instances
-        for (Enumeration e = properties.propertyNames(); e.hasMoreElements();)
+        for (Enumeration<?>  e = properties.propertyNames(); e.hasMoreElements();)
         {
             String propertyName = (String) e.nextElement();
             if (propertyName.startsWith(PROPERTY_KEY))
@@ -437,7 +437,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
      *                If an error occurs while calling the Handle API.
      */
     @Override
-    public Enumeration getHandlesForNA(byte[] theNAHandle)
+    public Enumeration<byte[]> getHandlesForNA(byte[] theNAHandle)
             throws HandleException
     {
         String naHandle = Util.decodeString(theNAHandle);
@@ -665,7 +665,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
                     + "DSpace instance.", ex);
         }
 
-        String[] prefixes;
+        //String[] prefixes;
         try {
             InputStreamReader jsonStreamReader = new InputStreamReader(url.openStream(), "UTF-8");
             JsonParser parser = new JsonParser();
