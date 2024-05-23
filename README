@@ -22,3 +22,8 @@ This allows you to run the Handle server on a separate machine than your
 DSpace instance.  If you use one Handle server for several DSpace
 instances, please have in mind that they will still need to use distinct
 handle prefixes.
+
+Please add 
+-Dlog4j.configurationFile=file://<path_to_server>/log4j-handle-plugin.properties 
+-Ddspace.handle.plugin.configuration=<path_to_server>/handle-dspace-plugin.cfg
+to the java exec
