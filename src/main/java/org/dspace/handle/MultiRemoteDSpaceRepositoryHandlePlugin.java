@@ -26,13 +26,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import com.google.gson.*;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import net.cnri.util.StreamTable;
 import net.handle.hdllib.Encoder;
@@ -41,6 +43,9 @@ import net.handle.hdllib.HandleStorage;
 import net.handle.hdllib.HandleValue;
 import net.handle.hdllib.ScanCallback;
 import net.handle.hdllib.Util;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Extension to the CNRI Handle Server that translates requests to resolve
@@ -345,14 +350,17 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
             }
 
             String jsonurl = endpoint + "/resolve/" + handle;
-            jsonStreamReader = new InputStreamReader(
-                URI.create(jsonurl).toURL().openStream(), "UTF-8");
-            JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(jsonStreamReader);
-
-            if (jsonElement == null || jsonElement.isJsonNull()
-                    || jsonElement.getAsJsonArray().size() == 0
-                    || jsonElement.getAsJsonArray().get(0).isJsonNull())
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                .url(jsonurl)
+                .get()
+                .build();
+            Response response = client.newCall(request).execute();
+            JsonArray jsonArray = JsonParser.parseString(response.body().string()).getAsJsonArray();
+            
+            if (jsonArray == null || jsonArray.isJsonNull()
+                    || jsonArray.size() == 0
+                    || jsonArray.get(0).isJsonNull())
             {
                 if (log.isDebugEnabled())
                 {
@@ -361,7 +369,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
                 throw new HandleException(HandleException.HANDLE_DOES_NOT_EXIST);
             }
 
-            url = jsonElement.getAsJsonArray().get(0).getAsString();
+            url = jsonArray.get(0).getAsString();
         }
         catch (HandleException | IOException | JsonIOException | JsonSyntaxException e)
         {
@@ -387,8 +395,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
                 }
             }
         }
-        if (log.isDebugEnabled())
-        {
+        if (log.isDebugEnabled()) {
             log.debug(("getRemoteDspaceURL returns " + url));
         }
         return url;
