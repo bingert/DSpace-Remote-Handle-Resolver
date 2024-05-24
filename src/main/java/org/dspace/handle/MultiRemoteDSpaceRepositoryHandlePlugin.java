@@ -26,17 +26,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.google.gson.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 
 import net.cnri.util.StreamTable;
 import net.handle.hdllib.Encoder;
@@ -675,40 +671,21 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage
                 .build();
         try (Response response = client.newCall(request).execute()) {
             if (response.body() != null) {
-                log.error("################################");
-                log.error(response.body().string());
-                log.error("################################");
-            }
-        } catch (IOException e) {
-            log.error(e);
-        }
+                JsonArray jsonArray = JsonParser.parseString(response.body().string()).getAsJsonArray();
+                for (int i = 0; i < jsonArray.size(); i++)
+                {
+                    String prefix = jsonArray.get(i).getAsString();
+                    this.prefixes.put(prefix, endpoint);
 
-        //String[] prefixes;
-//        try {
-//            InputStreamReader jsonStreamReader = new InputStreamReader(url.openStream(), "UTF-8");
-//            JsonParser parser = new JsonParser();
-//            JsonElement jsonElement = parser.parse(jsonStreamReader);
-//
-//            if (jsonElement != null && jsonElement.getAsJsonArray().size() != 0)
-//            {
-//                for (int i = 0; i < jsonElement.getAsJsonArray().size(); i++)
-//                {
-//                    String prefix = jsonElement.getAsJsonArray().get(i).getAsString();
-//                    this.prefixes.put(prefix, endpoint);
-//
-//                    if (log.isInfoEnabled())
-//                    {
-//                        log.info("Mapping " + prefix + " to instance at " + endpoint);
-//                    }
-//                }
-//            } else {
-//                log.warn("DSpace instance running at " + url + " returns empty prefix list.");
-//            }
-//        }
-//        catch (IOException | JsonIOException | JsonSyntaxException ex)
-//        {
-//            log.warn("Error while loading prefixes from " + endpoint + ", ignoring.", ex);
-//        }
+                    if (log.isInfoEnabled())
+                    {
+                        log.info("Mapping " + prefix + " to instance at " + endpoint);
+                    }
+                }
+            }
+        } catch (IOException | JsonIOException | JsonSyntaxException ex) {
+            log.warn("Error while loading prefixes from " + endpoint + ", ignoring.", ex);
+        }
     }
     
     public static void main(String[] args) throws Exception
