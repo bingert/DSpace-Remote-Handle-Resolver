@@ -31,7 +31,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -95,18 +94,18 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage {
      */
     @Override
     public void init(StreamTable st) throws Exception {
-        // Not implemented
+        // Get prefixes from DSpace instance
         if (log.isInfoEnabled()) {
             log.info("Called init");
         }
 
-        // initalize our prefix map
+        // initialize our prefix map
         this.prefixes = new HashMap<>();
 
-        // try to find our configuration
+        // read DSpace from configuration file
         Properties properties = loadProperties(CONFIG_FILE_NAME);
 
-        // find urls of all configured dspace instances
+        // find urls of all configured DSpace instances
         for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();) {
             String propertyName = (String) e.nextElement();
             if (propertyName.startsWith(PROPERTY_KEY)) {
@@ -115,7 +114,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage {
             }
         }
 
-        // did we found any prefixes?
+        // did we find any prefixes?
         if (this.prefixes.isEmpty()) {
             throw new HandleException(HandleException.INTERNAL_ERROR,
                     "Unable to find configuration or to reach any DSpace instance.");
@@ -291,9 +290,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage {
             rawValues[i] = new byte[Encoder.calcStorageSize(hvalue)];
             Encoder.encodeHandleValue(rawValues[i], 0, hvalue);
         }
-
         return rawValues;
-
     }
 
     private String getRemoteDSpaceURL(String handle) throws HandleException {
@@ -409,9 +406,7 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage {
             // Transforms to byte array
             results.add(Util.encodeString(handle));
         }
-
         return Collections.enumeration(results);
-
     }
 
     private List<String> getRemoteDSpaceHandles(String naHandle)
@@ -424,18 +419,19 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage {
             return handles;
         }
 
-        InputStreamReader jsonStreamReader = null;
         try {
             String jsonurl = endpoint + "/listhandles/" + naHandle;
-            jsonStreamReader = new InputStreamReader(
-                    URI.create(jsonurl).toURL().openStream(), "UTF-8");
-            JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(jsonStreamReader);
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(jsonurl)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            JsonArray jsonArray = JsonParser.parseString(response.body().string()).getAsJsonArray();
 
-            if (jsonElement != null && jsonElement.getAsJsonArray().size() != 0) {
-                for (int i = 0; i < jsonElement.getAsJsonArray().size(); i++) {
-                    handles.add(jsonElement.getAsJsonArray().get(i)
-                            .getAsString());
+            if (jsonArray != null && jsonArray.size() != 0) {
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    handles.add(jsonArray.get(i).getAsString());
                 }
             }
         } catch (IOException | JsonIOException | JsonSyntaxException e) {
@@ -445,14 +441,6 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage {
 
             // Stack loss as exception does not support cause
             throw new HandleException(HandleException.INTERNAL_ERROR);
-        } finally {
-            if (jsonStreamReader != null) {
-                try {
-                    jsonStreamReader.close();
-                } catch (IOException e) {
-                    log.error(e.getMessage(), e);
-                }
-            }
         }
         return handles;
     }
@@ -492,7 +480,6 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage {
                 }
             }
         }
-
         return props;
     }
 
@@ -555,7 +542,6 @@ public class MultiRemoteDSpaceRepositoryHandlePlugin implements HandleStorage {
         if (is == null) {
             throw new IllegalStateException("Cannot find configuration.");
         }
-
         return is;
     }
 
