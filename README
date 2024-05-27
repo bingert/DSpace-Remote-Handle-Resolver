@@ -24,6 +24,13 @@ instances, please have in mind that they will still need to use distinct
 handle prefixes.
 
 Please add 
--Dlog4j.configurationFile=file://<path_to_server>/log4j-handle-plugin.properties 
--Ddspace.handle.plugin.configuration=<path_to_server>/handle-dspace-plugin.cfg
-to the java exec
+* Dlog4j.configurationFile=file://<path_to_server>/log4j-handle-plugin.properties 
+* Ddspace.handle.plugin.configuration=<path_to_server>/handle-dspace-plugin.cfg
+to the java exec in bin/hdl
+
+In the config.dct of the server you need to add
+    "storage_type"="CUSTOM"
+    "storage_class"="org.dspace.handle.MultiRemoteDSpaceRepositoryHandlePlugin"
+
+
+
